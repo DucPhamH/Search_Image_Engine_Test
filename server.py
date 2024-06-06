@@ -130,7 +130,7 @@ def search():
     # bỏ đi các ảnh không có trong db va sắp xếp theo distance
     scores = [score for score in scores if 'image' in score]
 
-    # lấy 30 ban ghi đầu tiên
+    # lấy 20 ban ghi đầu tiên
     scores = scores[:20]
 
     

@@ -2,6 +2,11 @@
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.vgg19 import VGG19, preprocess_input
 from tensorflow.keras.models import Model
+# import tensorflow as tf
+# import keras
+# from keras.applications.vgg19 import VGG19, preprocess_input
+# from keras.preprocessing.image import image
+# from keras.models import Model
 import numpy as np
 
 

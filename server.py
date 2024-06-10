@@ -152,9 +152,53 @@ def create_img():
     print(feature)
     feature_path = Path("./static/feature") / (img_name + ".npy")
     np.save(feature_path, feature)
-   
- 
     return jsonify({'message': 'Create image successfully'}), 200
+
+@app.route('/update-img', methods=['POST'])
+def update_img():
+    if 'image' not in request.json:
+        return jsonify({'error': 'No image found in request'}), 400
+    if 'image_name' not in request.json:
+        return jsonify({'error': 'No image_name found in request'}), 400
+    if 'old_image_name' not in request.json:
+        return jsonify({'error': 'No old_image_name found in request'}), 400
+    img_url = request.json['image']
+    img_name = request.json['image_name']
+    old_img_name = request.json['old_image_name']
+    response = requests.get(img_url)
+    img = Image.open(BytesIO(response.content))
+    img.save(f'static/img/{img_name}.jpg')
+    feature = fe.extract(img)
+    print(feature)
+    feature_path = Path("./static/feature") / (img_name + ".npy")
+    np.save(feature_path, feature)
+    # xóa old_image_name trong static/img và static/feature
+    old_img_path = Path(f"./static/img/{old_img_name}.jpg")
+    old_feature_path = Path(f"./static/feature/{old_img_name}.npy")
+    # nếu không có thì không xóa và cho qua luôn không cần báo lỗi
+    if not old_img_path.exists():
+        return jsonify({'message': 'Update image successfully'}), 200
+
+    old_img_path.unlink()
+    old_feature_path.unlink()
+    return jsonify({'message': 'Update image successfully'}), 200
+
+@app.route('/delete-img', methods=['POST'])
+def delete_img():
+    if 'image_name' not in request.json:
+        return jsonify({'error': 'No image_name found in request'}), 400
+    img_name = request.json['image_name']
+    img_path = Path(f"./static/img/{img_name}.jpg")
+    feature_path = Path(f"./static/feature/{img_name}.npy")
+    # nếu không có thì không xóa và cho qua luôn không cần báo lỗi
+    if not img_path.exists():
+        return jsonify({'message': 'Delete image successfully'}), 200
+
+    img_path.unlink()
+    feature_path.unlink()
+    return jsonify({'message': 'Delete image successfully'}), 200
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,12 +1,12 @@
 # Description: Extracts features from images using VGG16 model
-# from tensorflow.keras.preprocessing import image
-# from tensorflow.keras.applications.vgg19 import VGG19, preprocess_input
-# from tensorflow.keras.models import Model
-import tensorflow as tf
-import keras
-from keras.applications.vgg19 import VGG19, preprocess_input
-from keras.preprocessing import image
-from keras.models import Model
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.vgg19 import VGG19, preprocess_input
+from tensorflow.keras.models import Model
+# import tensorflow as tf
+# import keras
+# from keras.applications.vgg19 import VGG19, preprocess_input
+# from keras.preprocessing import image
+# from keras.models import Model
 import numpy as np
 
 
